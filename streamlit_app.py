@@ -16,11 +16,21 @@ movies.drop(['genres','(no genres listed)'],axis=1,inplace=True)
 movies.head()
 
 # Load the saved model
-import pickle
-filename = 'recommender.pkl'
-pickle_in = open(filename, 'rb')
-recommender= pickle.load(pickle_in)
-recommender.fit_predict(X)
+# import pickle
+# filename = 'recommender.pkl'
+# pickle_in = open(filename, 'rb')
+# recommender= pickle.load(pickle_in)
+# recommender.fit_predict(X)
+
+from sklearn.cluster import KMeans
+from sklearn.linear_model import LogisticRegression
+import random
+
+X=movies.drop('title',axis=1)
+n_clusters=170
+recommender=KMeans(n_clusters=n_clusters,random_state=1)
+labels=recommender.fit_predict(X)
+
 
 rndi=dict()
 for i in range(n_clusters):
